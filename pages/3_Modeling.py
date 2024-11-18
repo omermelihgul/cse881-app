@@ -30,9 +30,9 @@ if algorithm == "LatentDirichletAllocation":
     model = LatentDirichletAllocation(n_components=n_topics, random_state=random_state)
 elif algorithm == "NMF":
     if beta_loss == "frobenius":
-        model = NMF(n_components=n_topics, random_state=random_state, init=init, beta_loss=beta_loss, alpha_W=0.00005, alpha_H=0.00005, 1_ratio=1)
+        model = NMF(n_components=n_topics, random_state=random_state, init=init, beta_loss=beta_loss, alpha_W=0.00005, alpha_H=0.00005, l1_ratio=1)
     elif beta_loss == "kullback-leibler":
-        model = NMF(n_components=n_topics, random_state=random_state, init=init, beta_loss=beta_loss, solver="mu", max_iter=1000, alpha_W=0.00005, alpha_H=0.00005, 1_ratio=0.5)
+        model = NMF(n_components=n_topics, random_state=random_state, init=init, beta_loss=beta_loss, solver="mu", max_iter=1000, alpha_W=0.00005, alpha_H=0.00005, l1_ratio=0.5)
 elif algorithm == "MiniBatchNMF":
     model = MiniBatchNMF(n_components=n_topics, random_state=random_state, init = "nndsvda", batch_size=128, beta_loss=beta_loss, alpha_W=0.00005, alpha_H=0.00005, l1_ratio=0.5)
 
