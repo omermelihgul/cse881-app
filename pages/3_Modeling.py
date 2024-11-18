@@ -13,6 +13,8 @@ n_topics = st.slider("Number of Topics", min_value=2, max_value=10, value=3, ste
 n_top_words = st.slider("Number of Top Words per Topic", min_value=5, max_value=30, value=20, step=1)
 random_state = st.slider("Random State", min_value=0, max_value=5, value=0, step=1)
 algorithm = st.selectbox("Choose Topic Modeling Algorithm", ["LatentDirichletAllocation", "NMF", "MiniBatchNMF"])
+if lgorithm == "MiniBatchNMF":
+    beta_loss = st.selectbox("Beta Loss", ["frobenius", "kullback-leibler"])
 
 ages = sorted(documents.keys())
 document_texts = [documents[age] for age in ages]
@@ -26,7 +28,7 @@ if algorithm == "LatentDirichletAllocation":
 elif algorithm == "NMF":
     model = NMF(n_components=n_topics, random_state=random_state)
 elif algorithm == "MiniBatchNMF":
-    model = MiniBatchNMF(n_components=n_topics, random_state=random_state, init = "nndsvda", batch_size=128, beta_loss="kullback-leibler", alpha_W=0.00005, alpha_H=0.00005, l1_ratio=0.5)
+    model = MiniBatchNMF(n_components=n_topics, random_state=random_state, init = "nndsvda", batch_size=128, beta_loss=beta_loss, alpha_W=0.00005, alpha_H=0.00005, l1_ratio=0.5)
 
 model.fit(doc_term_matrix)
 
