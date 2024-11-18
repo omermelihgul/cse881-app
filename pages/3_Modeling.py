@@ -13,7 +13,8 @@ n_topics = st.slider("Number of Topics", min_value=2, max_value=10, value=3, ste
 n_top_words = st.slider("Number of Top Words per Topic", min_value=5, max_value=30, value=20, step=1)
 random_state = st.slider("Random State", min_value=0, max_value=5, value=0, step=1)
 algorithm = st.selectbox("Choose Topic Modeling Algorithm", ["LatentDirichletAllocation", "NMF", "MiniBatchNMF"])
-if lgorithm == "MiniBatchNMF":
+
+if algorithm == "MiniBatchNMF":
     beta_loss = st.selectbox("Beta Loss", ["frobenius", "kullback-leibler"])
 
 ages = sorted(documents.keys())
