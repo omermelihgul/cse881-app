@@ -6,6 +6,8 @@ from documents import documents
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.decomposition import LatentDirichletAllocation, MiniBatchNMF, NMF
 
+init = "nndsvda"
+
 st.title("Configurable Topic Modeling")
 st.write("Customize the topic modeling parameters and explore the results dynamically.")
 
@@ -14,7 +16,7 @@ n_top_words = st.slider("Number of Top Words per Topic", min_value=5, max_value=
 random_state = st.slider("Random State", min_value=0, max_value=5, value=0, step=1)
 algorithm = st.selectbox("Choose Topic Modeling Algorithm", ["LatentDirichletAllocation", "NMF", "MiniBatchNMF"])
 
-if algorithm == "MiniBatchNMF":
+if algorithm == "MiniBatchNMF" or algorithm == "NMF":
     beta_loss = st.selectbox("Beta Loss", ["frobenius", "kullback-leibler"])
 
 ages = sorted(documents.keys())
@@ -27,7 +29,10 @@ feature_names = vectorizer.get_feature_names_out()
 if algorithm == "LatentDirichletAllocation":
     model = LatentDirichletAllocation(n_components=n_topics, random_state=random_state)
 elif algorithm == "NMF":
-    model = NMF(n_components=n_topics, random_state=random_state)
+    if beta_loss == "frobenius":
+        model = NMF(n_components=n_topics, random_state=random_state, init=init, beta_loss=beta_loss, alpha_W=0.00005, alpha_H=0.00005, 1_ratio=1)
+    elif beta_loss == "kullback-leibler":
+        model = NMF(n_components=n_topics, random_state=random_state, init=init, beta_loss=beta_loss, solver="mu", max_iter=1000, alpha_W=0.00005, alpha_H=0.00005, 1_ratio=0.5)
 elif algorithm == "MiniBatchNMF":
     model = MiniBatchNMF(n_components=n_topics, random_state=random_state, init = "nndsvda", batch_size=128, beta_loss=beta_loss, alpha_W=0.00005, alpha_H=0.00005, l1_ratio=0.5)
 
