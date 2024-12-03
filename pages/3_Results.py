@@ -200,9 +200,9 @@ with col2:
 
 st.subheader("Gender")
 st.dataframe([
-    {"": "Male", "Percentage": f"{data[study]["gender"]["male"]}%"},
-    {"": "Female", "Percentage": f"{data[study]["gender"]["female"]}%"},
-    {"": "Unspecified", "Percentage": f"{data[study]["gender"]["unsp"]}%"},
+    {"": "Male", "Percentage": "1"},
+    {"": "Female", "Percentage": "1"},
+    {"": "Unspecified", "Percentage": "1"},
 ], use_container_width=True)
 
 
