@@ -245,11 +245,7 @@ df = df.set_index("age")
 st.bar_chart(df, x_label="Age (months)", y_label="Number of Transcripts")
 
 
-st.subheader("Child - Explained Variance by Principal Component")
-st.line_chart(data[study]["pca"]["child"], x_label="Principal Component", y_label="Explained Variance Ratio")
 
-st.subheader("Child - Explained Variance by Principal Component")
-st.line_chart(data[study]["pca"]["child"], x_label="Principal Component", y_label="Explained Variance Ratio")
 
 smoothed_child = pd.read_csv(f"results/{study}/child.csv")
 smoothed_child.index = index=[int(x) for x in ages]
@@ -257,6 +253,10 @@ smoothed_child.index = index=[int(x) for x in ages]
 st.subheader("Child - Smoothed Topic Proportions Across Ages")
 st.write(f'(window size = {ws[study]["child"]})')
 st.line_chart(smoothed_child, x_label='Ages in Months', y_label='Smoothed Topic Proportion')
+
+st.subheader("Child - Explained Variance by Principal Component")
+st.line_chart(data[study]["pca"]["child"], x_label="Principal Component", y_label="Explained Variance Ratio")
+
 
 if study != "Garvey":
     smoothed_parent = pd.read_csv(f"results/{study}/parent.csv")
