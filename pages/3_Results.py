@@ -1,6 +1,37 @@
 import streamlit as st
 import pandas as pd
 
+Bates = [20, 22, 28]
+Champaign = [20, 21, 22, 23, 24, 25, 27, 28, 30, 31, 33, 34, 36, 37]
+Garvey = [34, 35, 36, 37, 38, 39, 42, 43, 45, 48, 49, 53, 55, 57, 58, 60, 61, 62, 63, 64, 67]
+Hall = [54, 57]
+HSLLD = [
+    43,  44,  45,  46,  47,  48,  49,  50,  51,  52,  53,  54,  55,  56,
+    57,  58,  59,  60,  61,  62,  63,  64,  65,  66,  67,  68,  69,  70,
+    71,  72,  73,  74,  76,  77,  78,  83,  84,  85,  86,  87,  88,  89,
+    90,  91,  92,  93,  95, 101, 107, 108, 109, 110, 111, 112, 113, 114,
+    115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 131,
+    132, 133, 138, 140, 142, 144
+]
+All = [
+    20,  21,  22,  23,  24,  25,  27,  28,  30,  31,  33,  34,  35,  36,
+    37,  38,  39,  42,  43,  44,  45,  46,  47,  48,  49,  50,  51,  52,
+    53,  54,  55,  56,  57,  58,  59,  60,  61,  62,  63,  64,  65,  66,
+    67,  68,  69,  70,  71,  72,  73,  74,  76,  77,  78,  83,  84,  85,
+    86,  87,  88,  89,  90,  91,  92,  93,  95, 101, 107, 108, 109, 110,
+    111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124,
+    125, 126, 127, 131, 132, 133, 138, 140, 142, 144
+]
+
+studies = {
+    "All": All,
+    "Bates": Bates,
+    "Champaign": Champaign,
+    "Garvey": Garvey,
+    "Hall": Hall,
+    "HSLLD": HSLLD,
+}
+
 ws = {
     "All": {
         "child": "1",
@@ -172,6 +203,7 @@ data = {
 
 st.title("Results")
 study = st.selectbox("Choose Study", ['All', 'Bates', 'Champaign', 'Garvey', 'Hall', 'HSLLD'])
+ages = studies[study]
 
 # Calculate percentages
 total_transcripts = data[study]["transcripts"]["male"] + data[study]["transcripts"]["female"]
@@ -217,6 +249,7 @@ st.subheader("Child - Explained Variance by Principal Component")
 st.line_chart(data[study]["pca"]["child"], x_label="Principal Component", y_label="Explained Variance Ratio")
 
 smoothed_child = pd.read_csv(f"results/{study}/child.csv")
+smoothed_child.index = index=[int(x) for x in ages]
 
 st.subheader("Child - Smoothed Topic Proportions Across Ages")
 st.write(f'(window size = {ws[study]["child"]})')
@@ -230,6 +263,7 @@ if study != "Garvey":
     st.line_chart(data[study]["pca"]["child"], x_label="Principal Component", y_label="Explained Variance Ratio")
 
     smoothed_parent = pd.read_csv(f"results/{study}/parent.csv")
+    smoothed_parent.index = index=[int(x) for x in ages]
     st.subheader("Parent - Smoothed Topic Proportions Across Ages")
     st.write(f'(window size = {ws[study]["parent"]})')
     st.line_chart(smoothed_parent, x_label='Ages in Months', y_label='Smoothed Topic Proportion')
