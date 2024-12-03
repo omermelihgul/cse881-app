@@ -1,6 +1,33 @@
 import streamlit as st
 import pandas as pd
 
+ws = {
+    "All": {
+        "child": 1,
+        "parent": 1 
+    },
+    "Bates": {
+        "child": 1,
+        "parent": 1 
+    },
+    "Champaign": {
+        "child": 1,
+        "parent": 1 
+    },
+    "Garvey": {
+        "child": 1,
+        "parent": 1 
+    },
+    "Hall": {
+        "child": 1,
+        "parent": 1 
+    },
+    "HSLLD": {
+        "child": 1,
+        "parent": 1 
+    }
+}
+
 # Define the data
 data = {
     "All": {
@@ -171,6 +198,14 @@ with col2:
     ], use_container_width=True)
 
 
+st.subheader("Gender")
+st.dataframe([
+    {"": "Male", "Percentage": f"{data[study]["gender"]["male"]}%"},
+    {"": "Female", "Percentage": f"{data[study]["gender"]["female"]}%"},
+    {"": "Unspecified", "Percentage": f"{data[study]["gender"]["unsp"]}%"},
+], use_container_width=True)
+
+
 
 st.subheader("Transcript Counts by Age")
 df = pd.DataFrame(data[study]["ages"])
@@ -178,7 +213,14 @@ df = df.set_index("age")
 st.bar_chart(df, x_label="Age (months)", y_label="Number of Transcripts")
 
 
+st.subheader("Child - Explained Variance by Principal Component")
+st.line_chart(data[study]["pca"]["child"], x_label="Principal Component", y_label="Explained Variance Ratio")
 
+smoothed_child = pd.read_csv(f"results/{study}/child.csv")
+
+st.subheader("Child - Smoothed Topic Proportions Across Ages")
+st.write(f"(window size = {ws[study]["child"]})")
+st.line_chart(smoothed_child, x_label='Ages in Months', y_label='Smoothed Topic Proportion')
 
 st.subheader("Child - Explained Variance by Principal Component")
 st.line_chart(data[study]["pca"]["child"], x_label="Principal Component", y_label="Explained Variance Ratio")
@@ -187,16 +229,17 @@ if study != "Garvey":
     st.subheader("Parent - Explained Variance by Principal Component")
     st.line_chart(data[study]["pca"]["child"], x_label="Principal Component", y_label="Explained Variance Ratio")
 
-
-
-
+    smoothed_parent = pd.read_csv(f"results/{study}/parent.csv")
+    st.subheader("Parent - Smoothed Topic Proportions Across Ages")
+    st.write(f"(window size = {ws[study]["parent"]})")
+    st.line_chart(smoothed_parent, x_label='Ages in Months', y_label='Smoothed Topic Proportion')
 
 
 st.subheader("Top N-grams")
 col1, col2 = st.columns(2)
 with col1:
     st.subheader("Boys and Girls")
-    st.image(f"img/results/Bates/ngrams_Boys_Girls.png", use_column_width=True)
+    st.image(f"img/results/{study}/ngrams_Boys_Girls.png", use_column_width=True)
 
 with col2:
     if study != "Garvey":
