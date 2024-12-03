@@ -87,7 +87,7 @@ if st.sidebar.button("Start Loop"):
 
 
 html_content3 = """
-<div style="display: flex; justify-content: space-between; font-size: 24px; font-weight: bold; margin-top: 0px;">
+<div style="display: flex; justify-content: space-between; font-size: 24px; font-weight: bold; margin-top: 28px;">
     <span style="text-align: left;">Daily Activities</span>
     <span style="text-align: right;">Caregiving Needs</span>
 </div>
