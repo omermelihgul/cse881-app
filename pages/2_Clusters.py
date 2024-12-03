@@ -128,6 +128,13 @@ html_content2 = """
 """
 st.markdown(html_content1, unsafe_allow_html=True)
 
+column_colors = {
+    "female": "#FF69B4",                  # Example hex color for "female"
+    "male": "#1E90FF",                    # Example hex color for "male"
+    "female w/o transcripts": "#FFB6C1", # Example hex color for "female w/o transcripts"
+    "male w/o transcripts": "#ADD8E6"    # Example hex color for "male w/o transcripts"
+}
+
 def display_image(container, age):
     # Define the image path
     path = f"results/All/scatter/child/{age}.csv"
@@ -135,7 +142,7 @@ def display_image(container, age):
     if os.path.exists(path):
         df = pd.read_csv(path)
         pivot_df = df.pivot_table(index="x", columns="gender", values="y", aggfunc="mean")
-        container.scatter_chart(pivot_df, x_label=f'Ages in Months: {age}')
+        container.scatter_chart(pivot_df, x_label=f'Ages in Months: {age}', color=[column_colors[col] for col in pivot_df.columns])
         return True
     return False
 
@@ -162,7 +169,7 @@ if st.sidebar.button("Show"):
         st.warning("The selected age does not have an image.")
 
 # GIF loop
-frequency = st.sidebar.slider("Frequency (images per second)", min_value=1, max_value=10, step=1, value=2)
+frequency = st.sidebar.slider("Frequency (images per second)", min_value=1, max_value=10, step=1, value=4)
 if st.sidebar.button("Start Loop"):
     loop_images(image_container, frequency)
 
