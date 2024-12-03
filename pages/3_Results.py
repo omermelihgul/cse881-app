@@ -198,12 +198,12 @@ with col2:
     ], use_container_width=True)
 
 
-st.subheader("Gender")
-st.dataframe([
-    {"": "Male", "Percentage": f"{data[study]["gender"]["male"]}%"},
-    {"": "Female", "Percentage": f"{data[study]["gender"]["female"]}%"},
-    {"": "Unspecified", "Percentage": f"{data[study]["gender"]["unsp"]}%"},
-], use_container_width=True)
+# st.subheader("Gender")
+# st.dataframe([
+#     {"": "Male", "Percentage": f"{data[study]["gender"]["male"]}%"},
+#     {"": "Female", "Percentage": f"{data[study]["gender"]["female"]}%"},
+#     {"": "Unspecified", "Percentage": f"{data[study]["gender"]["unsp"]}%"},
+# ], use_container_width=True)
 
 
 
