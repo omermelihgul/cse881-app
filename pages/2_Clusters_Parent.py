@@ -183,6 +183,7 @@ import time
 import os
 
 st.title("Clusters")
+study = st.selectbox("Choose Study", ['Champaign', 'HSLLD'])
 
 html_content1 = """
 <div style="display: flex; justify-content: space-between; font-size: 24px; font-weight: bold; margin-bottom: 28px;">
@@ -208,7 +209,7 @@ column_colors = {
 
 def display_image(container, age):
     # Define the image path
-    path = f"results/All/scatter/child/{age}.csv"
+    path = f"results/{study}/scatter/{age}.csv"
     
     if os.path.exists(path):
         df = pd.read_csv(path)
@@ -221,14 +222,23 @@ def display_image(container, age):
 image_container = st.empty()
 
 # Default to show age 20
-if "current_age" not in st.session_state:
-    st.session_state["current_age"] = 20
+if study == "Champaign":
+    if "current_age" not in st.session_state:
+        st.session_state["current_age"] = 20
 
-if "previous_age" not in st.session_state:
-    st.session_state["previous_age"] = 20
+    if "previous_age" not in st.session_state:
+        st.session_state["previous_age"] = 20
+else:
+    if "current_age" not in st.session_state:
+        st.session_state["current_age"] = 44
+
+    if "previous_age" not in st.session_state:
+        st.session_state["previous_age"] = 44
+
+min_value = 20 if study == "Champaign" else 44
 
 # Sidebar age selection
-age = st.sidebar.number_input("Select an age to display", min_value=20, max_value=144, step=1)
+age = st.sidebar.number_input("Select an age to display", min_value=min_value, max_value=144, step=1)
 
 # Check if the age has changed
 if age != st.session_state["current_age"]:
@@ -243,7 +253,7 @@ if st.sidebar.button("Show"):
         st.warning("The selected age does not have data.")
 
 # GIF loop
-frequency = st.sidebar.slider("Frequency (images per second)", min_value=1, max_value=10, step=1, value=4)
+frequency = st.sidebar.slider("Frequency (images per second)", min_value=1, max_value=10, step=1, value=2)
 if st.sidebar.button("Start Loop"):
     while True:  # Infinite loop to keep cycling through images
         for age in range(20, 144):
