@@ -21,7 +21,7 @@ def loop_images(container, frequency):
                 time.sleep(1 / frequency)  # Delay based on the frequency
 
 # Streamlit app
-st.title("Clusters")
+st.title(f"Clusters")
 
 # Placeholder for displaying images
 image_container = st.empty()
