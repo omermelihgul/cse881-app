@@ -200,7 +200,7 @@ with col2:
 
 st.subheader("Gender")
 st.dataframe([
-    {"": "Male", "Percentage": f{data[study]["words"]["child"]}""},
+    {"": "Male", "Percentage": f"{data[study]["words"]["child"]}"},
     {"": "Female", "Percentage": "1"},
     {"": "Unspecified", "Percentage": "1"},
 ], use_container_width=True)
