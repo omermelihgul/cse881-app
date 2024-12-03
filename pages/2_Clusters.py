@@ -40,6 +40,6 @@ if st.sidebar.button("Show Image"):
         st.warning("The selected age does not have an image.")
 
 # GIF loop
-frequency = st.sidebar.slider("GIF Frequency (images per second)", min_value=1, max_value=10, step=1, value=2)
-if st.sidebar.button("Start GIF Loop"):
+frequency = st.sidebar.slider("Frequency (images per second)", min_value=1, max_value=10, step=1, value=2)
+if st.sidebar.button("Start Loop"):
     loop_images(image_container, frequency)
