@@ -34,28 +34,28 @@ studies = {
 
 ws = {
     "All": {
-        "child": "1",
-        "parent": "1" 
+        "child": "31",
+        "parent": "31" 
     },
     "Bates": {
         "child": "1",
         "parent": "1" 
     },
     "Champaign": {
-        "child": "1",
-        "parent": "1" 
+        "child": "5",
+        "parent": "5" 
     },
     "Garvey": {
-        "child": "1",
-        "parent": "1" 
+        "child": "7",
+        "parent": "7 " 
     },
     "Hall": {
-        "child": "1",
-        "parent": "1" 
+        "child": "0",
+        "parent": "0" 
     },
     "HSLLD": {
-        "child": "1",
-        "parent": "1" 
+        "child": "25",
+        "parent": "25" 
     }
 }
 
