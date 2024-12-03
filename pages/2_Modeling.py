@@ -39,7 +39,7 @@ elif algorithm == "MiniBatchNMF":
 model.fit(doc_term_matrix)
 
 st.subheader("Discovered Topics")
-on = st.toggle("Remove Common Words", value=True)
+# on = st.toggle("Remove Common Words", value=True)
 
 
 # if on:
@@ -81,7 +81,7 @@ for topic_idx, topic in enumerate(model.components_):
 doc_topic_distributions = model.transform(doc_term_matrix)
 df_topic_proportions = pd.DataFrame(doc_topic_distributions, index=[int(x) for x in ages], columns=[f"{names[i]}" for i in range(n_topics)])
 
-window_size = st.slider("Smoothing Window Size", min_value=1, max_value=5, value=3, step=1)
+window_size = st.slider("Smoothing Window Size", min_value=1, max_value=50, value=3, step=1)
 df_topic_proportions_smoothed = df_topic_proportions.rolling(window=window_size, center=True).mean()
 
 st.subheader("Smoothed Topic Proportions Across Ages")
