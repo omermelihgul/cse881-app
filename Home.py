@@ -1,6 +1,11 @@
 import streamlit as st
 
-st.title("🎈 My new app")
+st.title("Child Language Acquisition: Combining Public Datasets to Fuel Data-Hungry Computational Analyses")
 st.write(
-    "Let's start building! For help and inspiration, head over to [docs.streamlit.io](https://docs.streamlit.io/)."
+    "All code and data used in our project can be found at the following link:"
+)
+
+st.markdown(
+    "[GitHub Repository: langacq-nlp](https://github.com/maxwellreuter/langacq-nlp)",
+    unsafe_allow_html=True,
 )
